@@ -2,6 +2,7 @@ pipeline {
     agent any
     environment {
         GITHUB_CONTEXT = 'jenkins-ci'
+        CREDENTIAL = 'e5d3a2a4-4b1c-49b3-963b-db73d93c21a9'
     }
     stages {
         stage('Checkout') {
@@ -22,10 +23,10 @@ pipeline {
     }
     post {
         success {
-            publishChecks name: env.GITHUB_CONTEXT, status: 'COMPLETED', conclusion: 'SUCCESS', summary: 'Build and tests passed'
+            githubNotify context: env.GITHUB_CONTEXT, status: 'SUCCESS', credentialsId: env.CREDENTIAL
         }
         failure {
-            publishChecks name: env.GITHUB_CONTEXT, status: 'COMPLETED', conclusion: 'FAILURE', summary: 'Build or tests failed'
+            githubNotify context: env.GITHUB_CONTEXT, status: 'FAILURE', credentialsId: env.CREDENTIAL
         }
     }
 }

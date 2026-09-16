@@ -15,6 +15,8 @@ func main() {
 
 	smaller := findMin(num1, num2)
 	fmt.Printf("\nSmaller num is %v\n", smaller)
+
+	fmt.Println("CI should work")
 }
 
 func findMin(n1 int, n2 int) int {

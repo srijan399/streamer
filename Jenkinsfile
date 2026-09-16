@@ -23,10 +23,10 @@ pipeline {
     }
     post {
         success {
-            githubNotify context: env.GITHUB_CONTEXT, status: 'SUCCESS', credentialsId: env.CREDENTIAL
+            githubNotify context: env.GITHUB_CONTEXT, description: 'Build and tests passed', status: 'SUCCESS', credentialsId: env.CREDENTIAL
         }
         failure {
-            githubNotify context: env.GITHUB_CONTEXT, status: 'FAILURE', credentialsId: env.CREDENTIAL
+            githubNotify context: env.GITHUB_CONTEXT, description: 'Build or tests failed', status: 'FAILURE', credentialsId: env.CREDENTIAL
         }
     }
 }

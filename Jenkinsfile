@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    environment {
+        GITHUB_CONTEXT = 'jenkins-ci'
+        CREDENTIAL = 'e5d3a2a4-4b1c-49b3-963b-db73d93c21a9'
+    }
     stages {
         stage('Checkout') {
             steps {
@@ -19,10 +23,10 @@ pipeline {
     }
     post {
         success {
-            githubNotify context: 'jenkins-ci', status: 'SUCCESS', credentialsId: 'github-token'
+            githubNotify context: env.GITHUB_CONTEXT, status: 'SUCCESS', credentialsId: env.CREDENTIAL
         }
         failure {
-            githubNotify context: 'jenkins-ci', status: 'FAILURE', credentialsId: 'github-token'
+            githubNotify context: env.GITHUB_CONTEXT, status: 'FAILURE', credentialsId: env.CREDENTIAL
         }
     }
 }

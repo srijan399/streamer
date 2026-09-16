@@ -17,4 +17,12 @@ pipeline {
             }
         }
     }
+    post {
+        success {
+            githubNotify context: 'jenkins-ci', status: 'SUCCESS', credentialsId: 'github-token'
+        }
+        failure {
+            githubNotify context: 'jenkins-ci', status: 'FAILURE', credentialsId: 'github-token'
+        }
+    }
 }

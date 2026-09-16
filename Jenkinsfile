@@ -1,9 +1,5 @@
 pipeline {
     agent any
-    environment {
-        GITHUB_CONTEXT = 'jenkins-ci'
-        CREDENTIAL = 'e5d3a2a4-4b1c-49b3-963b-db73d93c21a9'
-    }
     stages {
         stage('Checkout') {
             steps {
@@ -19,14 +15,6 @@ pipeline {
             steps {
                 sh 'go test -v ./...'
             }
-        }
-    }
-    post {
-        success {
-            githubNotify context: env.GITHUB_CONTEXT, description: 'Build and tests passed', status: 'SUCCESS', credentialsId: env.CREDENTIAL, account: 'srijan399', repo: 'streamer', sha: env.GIT_COMMIT
-        }
-        failure {
-            githubNotify context: env.GITHUB_CONTEXT, description: 'Build or tests failed', status: 'FAILURE', credentialsId: env.CREDENTIAL, account: 'srijan399', repo: 'streamer', sha: env.GIT_COMMIT
         }
     }
 }
